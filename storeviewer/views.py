@@ -23,14 +23,19 @@ def homePage(request):
 
 
 def viewStore(request, name):
+    root_store = Root_Store.objects.get(name=name)
+
     return render(request, "storeviewer/rootstore.html",
-            context={
-                "store": Root_Store.objects.get(name=name)
+            context={"rootstore": root_store,
+                "certificates": root_store.certificates.all()
                 })
 
 
 def viewCert(request, sha256):
+    cert = Certificate.objects.get(sha256=sha256)
     return render(request, "storeviewer/certificate.html",
+
             context={
-                "cert": Certificate.objects.get(sha256=sha256)
+                "certificate": cert,
+                "stores": cert.stores.all()
                 })

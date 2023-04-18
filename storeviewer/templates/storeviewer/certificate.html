@@ -1,1 +1,37 @@
-VIEWCERT
+<html>
+	<head>
+		<title>{{ cert.common_name }}</title>
+	</head>
+	<body>
+		<table>
+			<thead>
+				<tr>
+					<td>Common Name</td>
+					<td>SHA-256 Hash</td>
+				</tr>
+			</thead>
+			<tbody>
+				<tr>
+					<td>{{ certificate.common_name }}</td>
+					<td>{{ certificate.sha256 }}</td>
+				</tr>
+			</tbody>
+		</table>
+		<table>
+			<thead>
+				<tr>
+					<td>Root Stores </td>
+					<td>Details</td>
+				</tr>
+			</thead>
+			<tbody>
+				{% for root in stores %}
+				<tr>
+					<td>{{ root.name }}</td>
+					<td><a href="/rootstore/{{ root.name }}">View Details</a></td>
+				</tr>
+				{% endfor %}
+			</tbody>
+		</table>
+	</body>
+</html>

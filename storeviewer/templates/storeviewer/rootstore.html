@@ -1,1 +1,25 @@
-ROOTSTORE
+<html>
+	<head>
+		<title>{{ rootstore.name }} Root Store</title>
+	</head>
+	<body>
+		<table>
+			<thead>
+				<tr>
+					<td>Common Name</td>
+					<td>SHA-256 Hash</td>
+					<td>Details</td>
+				</tr>
+			</thead>
+			<tbody>
+				{% for certificate in certificates %}
+				<tr>
+					<td>{{ certificate.common_name }}</td>
+					<td>{{ certificate.sha256 }}</td>
+					<td><a href="/cert/{{ certificate.sha256 }}">View Details</a></td>
+				</tr>
+				{% endfor %}
+			</tbody>
+		</table>
+	</body>
+</html>
