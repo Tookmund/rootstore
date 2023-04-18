@@ -6,6 +6,9 @@ name = "pypi"
 [packages]
 django = "*"
 gunicorn = "*"
+django-crontab = "*"
+pyyaml = "*"
+requests = "*"
 
 [dev-packages]
 black = "*"
