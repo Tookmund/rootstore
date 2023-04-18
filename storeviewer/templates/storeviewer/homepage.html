@@ -1,0 +1,25 @@
+<html>
+	<head>
+		<title>Root Store Viewer</title>
+	</head>
+	<body>
+		<table>
+			<thead>
+				<tr>
+					<td>Name</td>
+					<td>Data Source</td>
+					<td>Details</td>
+				</tr>
+			</thead>
+			<tbody>
+				{% for root_store in rootstores %}
+				<tr>
+					<td> {{ root_store.name }} </td>
+					<td> {{ root_store.source }} </td>
+					<td> <a href="/rootstore/{{ root_store.name }}">View Details</a></td>
+				</tr>
+				{% endfor %}
+			</tbody>
+		</table>
+	</body>
+</html>
