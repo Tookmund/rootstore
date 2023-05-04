@@ -5,6 +5,7 @@ from django.db import models
 class Certificate(models.Model):
     sha256 = models.CharField(max_length=64, unique=True)
     pem = models.CharField(max_length=16384)
+    owner = models.CharField(max_length=512)
     common_name = models.CharField(max_length=512)
     stores = models.ManyToManyField("Root_Store", through="Store_Contents")
 

@@ -27,7 +27,7 @@ def viewStore(request, name):
 
     return render(request, "storeviewer/rootstore.html",
             context={"rootstore": root_store,
-                "certificates": root_store.certificates.all()
+                "store_contents": Store_Contents.objects.filter(root_store=root_store)
                 })
 
 

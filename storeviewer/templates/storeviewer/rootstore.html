@@ -6,18 +6,22 @@
 		<table>
 			<thead>
 				<tr>
+					<td>Owner</td>
 					<td>Common Name</td>
 					<td>SHA-256 Hash</td>
 					<td>Details</td>
 				</tr>
 			</thead>
 			<tbody>
-				{% for certificate in certificates %}
-				<tr>
-					<td>{{ certificate.common_name }}</td>
-					<td>{{ certificate.sha256 }}</td>
-					<td><a href="/cert/{{ certificate.sha256 }}">View Details</a></td>
-				</tr>
+				{% for contents in store_contents %}
+					{% if contents.active %}
+						<tr>
+							<td>{{ contents.certificate.owner }}</td>
+							<td>{{ contents.certificate.common_name }}</td>
+							<td>{{ contents.certificate.sha256 }}</td>
+							<td><a href="/cert/{{ certificate.sha256 }}">View Details</a></td>
+						</tr>
+					{% endif %}
 				{% endfor %}
 			</tbody>
 		</table>

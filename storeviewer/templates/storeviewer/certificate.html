@@ -6,12 +6,14 @@
 		<table>
 			<thead>
 				<tr>
+					<td>Owner</td>
 					<td>Common Name</td>
 					<td>SHA-256 Hash</td>
 				</tr>
 			</thead>
 			<tbody>
 				<tr>
+					<td>{{ certificate.owner }}</td>
 					<td>{{ certificate.common_name }}</td>
 					<td>{{ certificate.sha256 }}</td>
 				</tr>
@@ -20,7 +22,7 @@
 		<table>
 			<thead>
 				<tr>
-					<td>Root Stores </td>
+					<td>Root Stores</td>
 					<td>Details</td>
 				</tr>
 			</thead>

@@ -5,7 +5,7 @@ from .utils import csv_reader_from_url, deactivate_certs
 from .models import Certificate, Root_Store, Store_Contents
 
 
-def ccadb_update(store_name, fingerprint_key, cn_key=None, pem_key=None, active_key=None, active_value=None):
+def ccadb_update(store_name, fingerprint_key, cn_key=None, owner_key=None, pem_key=None, active_key=None, active_value=None):
     root_store = Root_Store.objects.get(name=store_name)
     current_datetime = datetime.datetime.now(tz=datetime.timezone.utc)
     known_certs = set()
@@ -15,6 +15,8 @@ def ccadb_update(store_name, fingerprint_key, cn_key=None, pem_key=None, active_
             cert = Certificate(sha256=fingerprint)
             if cn_key is not None:
                 cert.common_name = cert_csv[cn_key]
+            if owner_key is not None:
+                cert.owner = cert_csv[owner_key]
             if pem_key is not None:
                 cert.pem = cert_csv[pem_key]
             cert.save()
@@ -37,6 +39,7 @@ def mozilla_update():
     ccadb_update("mozilla",
             fingerprint_key="SHA-256 Fingerprint",
             cn_key="Common Name or Certificate Name",
+            owner_key="Owner",
             pem_key="PEM Info")
 
 
@@ -44,6 +47,7 @@ def microsoft_update():
     ccadb_update("microsoft",
             fingerprint_key="SHA-256 Fingerprint",
             cn_key="CA Common Name or Certificate Name",
+            owner_key="CA Owner",
             active_key="Microsoft Status",
             active_value="Included")
 
