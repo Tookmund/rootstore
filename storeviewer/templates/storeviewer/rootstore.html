@@ -19,7 +19,7 @@
 							<td>{{ contents.certificate.owner }}</td>
 							<td>{{ contents.certificate.common_name }}</td>
 							<td>{{ contents.certificate.sha256 }}</td>
-							<td><a href="/cert/{{ certificate.sha256 }}">View Details</a></td>
+							<td><a href="/cert/{{ contents.certificate.sha256 }}">View Details</a></td>
 						</tr>
 					{% endif %}
 				{% endfor %}
