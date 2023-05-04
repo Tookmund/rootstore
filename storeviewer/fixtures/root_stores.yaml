@@ -1,21 +1,21 @@
 - model: storeviewer.Root_Store
   pk: 1
   fields:
-      name: Mozilla
+      name: mozilla
       source: https://ccadb-public.secure.force.com/mozilla/IncludedCACertificateReportPEMCSV
 - model: storeviewer.Root_Store
   pk: 2
   fields:
-      name: Chrome
+      name: google
       source: https://chromium.googlesource.com/chromium/src/+/main/net/data/ssl/chrome_root_store/root_store.certs
 - model: storeviewer.Root_Store
   pk: 3
   fields:
-      name: Microsoft
+      name: microsoft
       source: https://ccadb-public.secure.force.com/microsoft/IncludedCACertificateReportForMSFTCSV
 - model: storeviewer.Root_Store
   pk: 4
   fields:
-      name: Apple
+      name: apple
       source: https://support.apple.com/en-us/HT209143
 

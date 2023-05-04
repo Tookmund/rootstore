@@ -19,7 +19,7 @@ class Store_Contents(models.Model):
     certificate = models.ForeignKey(Certificate, on_delete=models.CASCADE)
     root_store = models.ForeignKey(Root_Store, on_delete=models.CASCADE)
     active = models.BooleanField()
-    last_trusted = models.DateTimeField()
+    last_trusted = models.DateTimeField(null=True)
 
     class Meta:
         constraints = [

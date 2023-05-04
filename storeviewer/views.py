@@ -1,7 +1,7 @@
 from django.shortcuts import render
 from django.http import HttpResponse
 
-from .fetch_rootstores import mozilla_update, microsoft_update
+from .ccadb_rootstores import mozilla_update, microsoft_update
 
 from .models import Root_Store, Certificate, Store_Contents
 
