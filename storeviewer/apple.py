@@ -1,4 +1,6 @@
 import requests
+import lxml
+import cchardet
 from bs4 import BeautifulSoup
 from django.db.utils import IntegrityError
 
@@ -8,14 +10,14 @@ from .utils import store_update, deactivate_certs
 
 def apple_table(url):
     stores_response = requests.get(url)
-    soup = BeautifulSoup(stores_response.content)
+    soup = BeautifulSoup(stores_response.content, "lxml")
 
     current_header = soup.find(string="Current Trust Store")
     current_link = current_header.find_next("a")
     current_url = current_link["href"]
 
     current_store_response = requests.get(current_url)
-    current_soup = BeautifulSoup(current_store_response.content)
+    current_soup = BeautifulSoup(current_store_response.content, "lxml")
     current_table = current_soup.find("table")
     current_rows = current_table.find_all("tr")
 

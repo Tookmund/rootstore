@@ -1,5 +1,7 @@
 import requests
 from bs4 import BeautifulSoup
+import lxml
+import cchardet
 
 from cryptography import x509
 from cryptography.hazmat.primitives.hashes import SHA256
@@ -10,7 +12,7 @@ from .utils import store_update
 
 def chrome_pems(url):
     response = requests.get(url)
-    soup = BeautifulSoup(response.content)
+    soup = BeautifulSoup(response.content, "lxml")
     table = soup.find("table", {"class": "FileContents"})
     store_file = ""
     is_cert = False
