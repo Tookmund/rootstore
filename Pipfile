@@ -9,6 +9,7 @@ gunicorn = "*"
 django-crontab = "*"
 pyyaml = "*"
 requests = "*"
+beautifulsoup4 = "*"
 
 [dev-packages]
 black = "*"

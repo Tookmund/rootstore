@@ -2,6 +2,7 @@ from django.shortcuts import render
 from django.http import HttpResponse
 
 from .ccadb_rootstores import mozilla_update, microsoft_update
+from .apple import apple_update
 
 from .models import Root_Store, Certificate, Store_Contents
 
@@ -9,8 +10,9 @@ from .models import Root_Store, Certificate, Store_Contents
 
 
 def updateCerts(request):
-    microsoft_update()
     mozilla_update()
+    microsoft_update()
+    apple_update()
     return HttpResponse("Certs Updated!")
 
 

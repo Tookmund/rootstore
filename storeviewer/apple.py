@@ -3,23 +3,37 @@ from bs4 import BeautifulSoup
 from django.db.utils import IntegrityError
 
 from .models import Certificate, Root_Store
-from .utils import deactivate_certs
+from .utils import store_update, deactivate_certs
 
 
 def apple_table(url):
-    return []
+    stores_response = requests.get(url)
+    soup = BeautifulSoup(stores_response.content)
 
-def update():
-    root_store = Root_Store.objects.get(name="Apple")
-    for cert_row in apple_table(root_store.source):
-        fingerprint = cert_row[6].replace(" ", "").lower()
-        try:
-            cert = Certificate(sha256=fingerprint,
-                    common_name=cert_row[0]
-            )
-            cert.save()
-        except IntegrityError:
-            cert = Certificate.objects.get(sha256=cert_row)
-        cert.stores.add(root_store)
-        root_store.certificates.add(cert)
+    current_header = soup.find(string="Current Trust Store")
+    current_link = current_header.find_next("a")
+    current_url = current_link["href"]
 
+    current_store_response = requests.get(current_url)
+    current_soup = BeautifulSoup(current_store_response.content)
+    current_table = current_soup.find("table")
+    current_rows = current_table.find_all("tr")
+
+    root_store_rows = []
+    for row in current_rows:
+        data = []
+        for td in row.find_all("td"):
+            data.append(td.text.replace("\xa0", ""))
+        if len(data) == 9:
+            data[8] = data[8].replace(" ", "").lower()
+            root_store_rows.append(data)
+
+    del root_store_rows[0]
+    return root_store_rows
+
+
+def apple_update():
+    store_update(apple_table, "apple",
+            fingerprint_key=8,
+            cn_key=0,
+            owner_key=1)
