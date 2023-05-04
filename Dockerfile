@@ -11,6 +11,7 @@ WORKDIR /code
 
 RUN pip install pipenv
 COPY Pipfile Pipfile.lock /code/
+RUN apt-get update && apt-get install -y libpq-dev gcc
 RUN pipenv install --deploy --system
 
 COPY . /code
