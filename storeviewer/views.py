@@ -3,6 +3,7 @@ from django.http import HttpResponse
 
 from .ccadb_rootstores import mozilla_update, microsoft_update
 from .apple import apple_update
+from .google import google_update
 
 from .models import Root_Store, Certificate, Store_Contents
 
@@ -13,6 +14,7 @@ def updateCerts(request):
     mozilla_update()
     microsoft_update()
     apple_update()
+    google_update()
     return HttpResponse("Certs Updated!")
 
 
