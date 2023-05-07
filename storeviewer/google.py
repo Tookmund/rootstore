@@ -49,7 +49,7 @@ def chrome_table(url):
     return rows
 
 def google_update():
-    store_update(chrome_table, "google",
+    yield from store_update(chrome_table, "google",
             fingerprint_key=0,
             owner_key=1,
             cn_key=2,

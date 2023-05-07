@@ -37,6 +37,7 @@ def store_update(store_to_iterable_func, store_name, fingerprint_key,
             cert.save()
         except IntegrityError:
             cert = Certificate.objects.get(sha256=fingerprint)
+        yield fingerprint +": "+cert.owner+", "+cert.common_name+"\n"
         known_certs.add(cert)
         store_contents, created = Store_Contents.objects.get_or_create(
                 certificate=cert,

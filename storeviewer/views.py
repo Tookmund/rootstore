@@ -14,16 +14,18 @@ def updateCerts(request):
     return StreamingHttpResponse(streamUpdateCerts())
 
 def streamUpdateCerts():
-    yield "Begin Certs Update..."
-    yield "Mozilla..."
-    mozilla_update()
-    yield "Microsoft..."
-    microsoft_update()
-    yield "Apple..."
-    apple_update()
-    yield "Google..."
-    google_update()
-    yield "All Updates Complete!"
+    yield "<pre>"
+    yield "Begin Certs Update...\n"
+    yield "Mozilla...\n"
+    yield from mozilla_update()
+    yield "Microsoft...\n"
+    yield from microsoft_update()
+    yield "Apple...\n"
+    yield from apple_update()
+    yield "Google...\n"
+    yield from google_update()
+    yield "All Updates Complete!\n"
+    yield "</pre>"
 
 
 def homePage(request):

@@ -35,7 +35,7 @@ def apple_table(url):
 
 
 def apple_update():
-    store_update(apple_table, "apple",
+    yield from store_update(apple_table, "apple",
             fingerprint_key=8,
             cn_key=0,
             owner_key=1)

@@ -6,7 +6,7 @@ from .models import Certificate, Root_Store, Store_Contents
 
 
 def mozilla_update():
-    store_update(csv_reader_from_url, "mozilla",
+    yield from store_update(csv_reader_from_url, "mozilla",
             fingerprint_key="SHA-256 Fingerprint",
             cn_key="Common Name or Certificate Name",
             owner_key="Owner",
@@ -14,7 +14,7 @@ def mozilla_update():
 
 
 def microsoft_update():
-    store_update(csv_reader_from_url, "microsoft",
+    yield from store_update(csv_reader_from_url, "microsoft",
             fingerprint_key="SHA-256 Fingerprint",
             cn_key="CA Common Name or Certificate Name",
             owner_key="CA Owner",
