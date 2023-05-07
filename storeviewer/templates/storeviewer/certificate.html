@@ -35,5 +35,10 @@
 				{% endfor %}
 			</tbody>
 		</table>
+		{% if certificate.pem is not None %}
+		<pre id="pem">
+{{ certificate.pem }}
+		</pre>
+		{% endif %}
 	</body>
 </html>
