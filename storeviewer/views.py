@@ -1,5 +1,5 @@
 from django.shortcuts import render
-from django.http import HttpResponse
+from django.http import HttpResponse, StreamingHttpResponse
 
 from .ccadb_rootstores import mozilla_update, microsoft_update
 from .apple import apple_update
@@ -11,11 +11,19 @@ from .models import Root_Store, Certificate, Store_Contents
 
 
 def updateCerts(request):
+    return StreamingHttpResponse(streamUpdateCerts())
+
+def streamUpdateCerts():
+    yield "Begin Certs Update..."
+    yield "Mozilla..."
     mozilla_update()
+    yield "Microsoft..."
     microsoft_update()
+    yield "Apple..."
     apple_update()
+    yield "Google..."
     google_update()
-    return HttpResponse("Certs Updated!")
+    yield "All Updates Complete!"
 
 
 def homePage(request):
