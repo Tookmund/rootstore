@@ -13,17 +13,19 @@ from .utils import store_update
 def chrome_pems(url):
     response = requests.get(url)
     soup = BeautifulSoup(response.content, "lxml")
-    table = soup.find("table", {"class": "FileContents"})
-    store_file = ""
+    table = soup.find("table")
+    pem = b""
+    newline = "\n".encode("utf-8")
     is_cert = False
     for line in table.find_all("tr"):
         if line.text == "-----BEGIN CERTIFICATE-----":
             is_cert = True
         if is_cert:
-            store_file += line.text + "\n"
+            pem += line.text.encode("utf-8") + newline
         if line.text == "-----END CERTIFICATE-----":
             is_cert = False
-    return store_file.encode("utf-8")
+            yield pem
+            pem = b""
 
 
 def cn(subject):
@@ -37,16 +39,13 @@ def cn(subject):
         return None
 
 def chrome_table(url):
-    pems = chrome_pems(url)
-    rows = []
-    try:
-        certs = x509.load_pem_x509_certificates(pems)
-    except ValueError:
-        return []
-    for cert in certs:
+    for pem in chrome_pems(url):
+        try:
+            cert = x509.load_pem_x509_certificate(pem)
+        except ValueError:
+            continue
         # fingerprint,issuer,common name,pem
-        rows.append([cert.fingerprint(SHA256()).hex(), cn(cert.issuer), cn(cert.subject), cert.public_bytes(Encoding.PEM).decode("utf-8")])
-    return rows
+        yield [cert.fingerprint(SHA256()).hex(), cn(cert.issuer), cn(cert.subject), pem.decode("utf-8")]
 
 def google_update():
     yield from store_update(chrome_table, "google",
