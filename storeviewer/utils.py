@@ -33,7 +33,7 @@ def store_update(store_to_iterable_func, store_name, fingerprint_key,
             if owner_key is not None:
                 cert.owner = cert_row[owner_key]
             if pem_key is not None:
-                cert.pem = cert_row[pem_key]
+                cert.pem = cert_row[pem_key].replace("'", "")
             cert.save()
         except IntegrityError:
             cert = Certificate.objects.get(sha256=fingerprint)
