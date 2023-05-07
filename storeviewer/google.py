@@ -23,7 +23,7 @@ def chrome_pems(url):
             store_file += line.text + "\n"
         if line.text == "-----END CERTIFICATE-----":
             is_cert = False
-    return store_file
+    return store_file.encode("utf-8")
 
 
 def cn(subject):
@@ -40,7 +40,7 @@ def chrome_table(url):
     pems = chrome_pems(url)
     rows = []
     try:
-        certs = x509.load_pem_x509_certificates(pems.encode("utf-8"))
+        certs = x509.load_pem_x509_certificates(pems)
     except ValueError:
         return []
     for cert in certs:
